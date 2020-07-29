@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using MvcWebUI.Models;
 
 namespace MvcWebUI.Controllers
 {
@@ -25,6 +26,13 @@ namespace MvcWebUI.Controllers
             ViewBag.Message = "Your contact page.";
 
             return View();
+        }
+
+        public ActionResult Color()
+        {
+            Models.Color color = new Color {Value = "Blue"};
+
+            return this.PartialView(color);
         }
     }
 }
