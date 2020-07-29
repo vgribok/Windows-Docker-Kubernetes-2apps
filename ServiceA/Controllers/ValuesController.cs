@@ -12,13 +12,13 @@ namespace ServiceA.Controllers
         // GET api/values
         public IEnumerable<string> Get()
         {
-            return new string[] { "value1", "value2" };
+            return new string[] { "A", "AA" };
         }
 
         // GET api/values/5
         public string Get(int id)
         {
-            return "value";
+            return "A";
         }
 
         // POST api/values
