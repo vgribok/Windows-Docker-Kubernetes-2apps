@@ -1,5 +1,5 @@
-﻿using System;
-using System.Web.Http;
+﻿using System.Web.Http;
+using ServiceA.BizLogic;
 
 namespace ServiceA.Controllers
 {
@@ -9,8 +9,7 @@ namespace ServiceA.Controllers
         [Route]
         public string Get()
         {
-            string envColor = Environment.GetEnvironmentVariable("COLOR");
-            return string.IsNullOrWhiteSpace(envColor) ? "Green" : envColor;
+            return AppSettingNames.Color.Get() ?? "Yellow";
         }
 
         // GET api/color/Red

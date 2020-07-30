@@ -1,5 +1,9 @@
-﻿using System.Web.Mvc;
-using MvcWebUI.Models;
+﻿using System;
+using System.Threading.Tasks;
+using System.Web.Mvc;
+
+using MvcWebUI.BizLogic;
+using Color = MvcWebUI.BizLogic.Color;
 
 namespace MvcWebUI.Controllers
 {
@@ -24,11 +28,27 @@ namespace MvcWebUI.Controllers
             return View();
         }
 
-        public ActionResult Color()
+        public async Task<ActionResult> Color()
         {
-            var color = new Color {Value = "Blue"};
+            string baseUrl = AppSettingNames.ServiceBaseUrl.Get();
 
-            return this.PartialView(color);
+            string colorString;
+            try
+            {
+                using (var svcClient = new ServiceA(new Uri(baseUrl)))
+                {
+                    var colorResource = new Color(svcClient);
+                    colorString = await colorResource.GetAsync();
+                }
+            }
+            catch (Exception e)
+            {
+                colorString = e.Innermost().Message;
+            }
+
+            var color = new Models.Color {Value = colorString};
+
+            return PartialView(color);
         }
     }
 }
